@@ -1,0 +1,43 @@
+{
+  "name": "next-js-create-app-template",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "ajv": "^8.10.0",
+    "axios": "^0.24.0",
+    "bcrypt": "^5.0.1",
+    "formidable": "^2.0.1",
+    "gray-matter": "^4.0.3",
+    "immutable": "^4.0.0",
+    "mongodb": "^4.2.2",
+    "next": "12.0.4",
+    "next-auth": "^4.0.6",
+    "next-connect": "^0.11.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-hook-form": "^7.26.1",
+    "react-icons": "^4.3.1",
+    "react-markdown": "^7.1.1",
+    "react-query": "^3.34.7",
+    "react-syntax-highlighter": "^15.4.5",
+    "react-textarea-autosize": "^8.3.3",
+    "remark-unwrap-images": "^3.0.1",
+    "styled-components": "^5.3.3"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^2.0.2",
+    "eslint": "7",
+    "eslint-config-next": "12.0.4",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "prettier": "^2.5.1"
+  }
+}
