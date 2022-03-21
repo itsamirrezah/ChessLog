@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import Grid from "../styles/grid";
 
-export default function Container({ children }) {
+export default function MainPage({ children, width, grid }) {
   return (
-    <StyledContainer>
+    <StyledContainer grid={grid} width={width}>
       <div>{children}</div>
     </StyledContainer>
   );
@@ -14,10 +15,8 @@ const StyledContainer = styled.div`
   padding: 6.4rem 0;
 
   & > div {
-    max-width: 1192px;
-    display: grid;
-    grid-template-columns: repeat(8, 1fr) repeat(4, minmax(48px, 1fr));
-    grid-template-rows: 1fr;
     width: 100%;
+    max-width: ${({ width }) => `${width}px`};
+    ${({ grid }) => grid && Grid}
   }
 `;

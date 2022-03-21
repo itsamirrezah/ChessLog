@@ -1,23 +1,23 @@
-import Container from "./styled/container";
 import Main from "./styled/main";
 import Feed from "../../../features/feed/feed";
-import Side from "./styled/side";
+import Side from "../../shared/sidebars/container";
 import WhoToFollow from "../../../features/who-to-follow/who-to-follow";
 import RecentlySaved from "../../../features/recently-saved/recently-saved";
 import Layout from "./layout";
+import MainPage from "../../shared/layout/main-content";
 
 export default function Home({ user }) {
   return (
     <Layout user={user}>
-      <Container>
+      <MainPage grid width={1192}>
         <Main>
           <Feed userId={user?.id} />
         </Main>
-        <Side>
+        <Side right gridColumn={9} span={4}>
           <WhoToFollow />
           {user && <RecentlySaved userId={user.id} />}
         </Side>
-      </Container>
+      </MainPage>
     </Layout>
   );
 }

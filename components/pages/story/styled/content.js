@@ -9,8 +9,8 @@ export default function Content({ children }) {
 }
 
 const StyledContent = styled.div`
-  border-left: 1px solid rgba(117, 117, 177, 0.5);
-  border-right: 1px solid rgba(117, 117, 177, 0.5);
+  grid-row-start: 1;
+  grid-column: 3 / span 7;
 
   & > div {
     padding-top: 5.6rem;

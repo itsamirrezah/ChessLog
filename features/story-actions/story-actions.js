@@ -40,7 +40,9 @@ export default function StoryActions({ story }) {
           Component={IconBookmark}
           isFill={data?.isBookmark}
           size="lg"
-          onClick={() => mutateSaveStory({ storyId: story._id })}
+          onClick={() =>
+            mutateSaveStory({ storyId: story._id, isSaved: !data.isBookmark })
+          }
         />
       </Action>
     </Container>

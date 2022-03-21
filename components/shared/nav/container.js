@@ -1,12 +1,17 @@
+import { forwardRef } from "react";
 import styled, { css } from "styled-components";
 
-export default function Nav({ height, isFixed, isHeroVisible, children }) {
+export default forwardRef(function Navigation(
+  { height, isFixed, isHeroVisible, children },
+  ref
+) {
   return (
     <>
       <Container
         height={height}
         isFixed={isFixed}
         isHeroVisible={isHeroVisible}
+        ref={ref}
       >
         <div>
           <div>{children}</div>
@@ -15,7 +20,23 @@ export default function Nav({ height, isFixed, isHeroVisible, children }) {
       {isFixed && <div style={{ height: height }}></div>}
     </>
   );
-}
+});
+// export default function Nav({ height, isFixed, isHeroVisible, children }) {
+//   return (
+//     <>
+//       <Container
+//         height={height}
+//         isFixed={isFixed}
+//         isHeroVisible={isHeroVisible}
+//       >
+//         <div>
+//           <div>{children}</div>
+//         </div>
+//       </Container>
+//       {isFixed && <div style={{ height: height }}></div>}
+//     </>
+//   );
+// }
 
 const Fixed = css`
   position: fixed;
