@@ -20,3 +20,11 @@ export const signupValidation = {
   },
   required: ["email", "password"],
 };
+
+export const clapValidation = {
+  type: "object",
+  properties: {
+    userClaps: { type: "integer" },
+  },
+  required: ["userClaps"],
+};

@@ -41,10 +41,10 @@ export async function getStoryById(client, id) {
   return await getStoryBy(client, { _id: ObjectId(id) });
 }
 
-export async function clapStory(client, storyId, userId) {
+export async function clapStory(client, storyId, userId, claps) {
   const result = await stories(client).updateOne(
     { _id: ObjectId(storyId) },
-    { $inc: { [`claps.${userId}`]: 1, allClaps: 1 } }
+    { $inc: { [`claps.${userId}`]: claps, allClaps: claps } }
   );
   return result;
 }

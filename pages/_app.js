@@ -7,8 +7,20 @@ import { AuthProvider } from "../lib/context/auth-context";
 import AuthModal from "../features/auth/auth-modal";
 import Meta from "../components/shared/layout/meta";
 
+const config = {
+  defaultOptions: {
+    queries: {
+      staleTime: 7200000,
+      refetchOnWindowFocus: false,
+      cacheTime: 108000000,
+      retry: 3,
+      retryDelay: 10,
+    },
+  },
+};
+
 function MyApp({ Component, pageProps }) {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(() => new QueryClient(config));
 
   const getLayout = Component.getLayout || ((page) => page);
 

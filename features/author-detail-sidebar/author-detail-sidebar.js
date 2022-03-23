@@ -7,10 +7,12 @@ import Container from "./styled/container";
 import useUser from "../../lib/services/user";
 import useViewerEdgeUser from "../../lib/services/viewer-edge-user";
 import AuthProtected from "../../components/shared/wrapper/auth-protected";
+import useFollowUser from "../../lib/services/follow-user";
 
 export default function AuthorDetail({ author }) {
   const { data: authorInfo } = useUser(author);
   const { data: viewerEdge } = useViewerEdgeUser(author._id);
+  const { mutate } = useFollowUser(author._id, viewerEdge?.isViewerFollow);
 
   return (
     <Container>
@@ -25,6 +27,7 @@ export default function AuthorDetail({ author }) {
           Component={FollowButton}
           variant="green"
           isFollow={viewerEdge.isViewerFollow}
+          onClick={() => mutate(author._id)}
         >
           {viewerEdge.isViewerFollow ? "Following" : "Follow"}
         </AuthProtected>

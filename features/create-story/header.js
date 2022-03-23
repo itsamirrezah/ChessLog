@@ -2,7 +2,7 @@ import { useRef } from "react";
 import Container from "./styled/header";
 import AspectImage from "../../components/shared/image/aspect-image";
 import useCreateStory from "./context/new-story-context";
-import useFocus from "../../lib/hooks/useFocus";
+import useFocus from "../../lib/hooks/use-focus";
 
 const keyboardActions = [13, 38, 40];
 
