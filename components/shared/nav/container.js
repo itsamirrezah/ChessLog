@@ -21,22 +21,6 @@ export default forwardRef(function Navigation(
     </>
   );
 });
-// export default function Nav({ height, isFixed, isHeroVisible, children }) {
-//   return (
-//     <>
-//       <Container
-//         height={height}
-//         isFixed={isFixed}
-//         isHeroVisible={isHeroVisible}
-//       >
-//         <div>
-//           <div>{children}</div>
-//         </div>
-//       </Container>
-//       {isFixed && <div style={{ height: height }}></div>}
-//     </>
-//   );
-// }
 
 const Fixed = css`
   position: fixed;
