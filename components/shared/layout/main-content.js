@@ -12,6 +12,7 @@ export default function MainPage({ children, width, grid }) {
 const StyledContainer = styled.div`
   display: flex;
   justify-content: center;
+  /* FIXME: remove padding */
   padding: 6.4rem 0;
 
   & > div {

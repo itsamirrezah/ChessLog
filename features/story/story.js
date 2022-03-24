@@ -7,8 +7,7 @@ import H2 from "./styled/h2";
 import AspectImage from "../../components/shared/image/aspect-image";
 import useStory from "../../lib/services/story";
 import useUser from "../../lib/services/user";
-import Content from "./styled/content";
-import ReactMarkdown from "react-markdown";
+import RenderMarkDown from "../render-markdown/render-markdown";
 
 export default function Story({ story }) {
   const { data } = useStory(story);
@@ -28,11 +27,9 @@ export default function Story({ story }) {
         <H2>{data?.excerpt}</H2>
         <AspectImage src={data?.header} />
       </Header>
-      <Content>
-        {data.content.map((c, i) => (
-          <ReactMarkdown key={i}>{c.content}</ReactMarkdown>
-        ))}
-      </Content>
+      {data.content.map((c, i) => (
+        <RenderMarkDown key={i}>{c.content}</RenderMarkDown>
+      ))}
     </>
   );
 }

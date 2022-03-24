@@ -9,12 +9,15 @@ export default function CreateStory() {
   return (
     <>
       {story.content.map((p, i) => {
-        const props = { isFocus: story.focus === i, index: i };
+        const props = {
+          isFocus: story.focus === i,
+          index: i,
+          content: p.content,
+        };
 
-        if (p.type === "title") return <Title content={p.content} {...props} />;
-        else if (p.type === "header")
-          return <Header content={p.content} {...props} />;
-        else return <Md key={i} content={p.content} {...props} />;
+        if (p.type === "title") return <Title {...props} />;
+        else if (p.type === "header") return <Header {...props} />;
+        else return <Md key={i} {...props} />;
       })}
     </>
   );

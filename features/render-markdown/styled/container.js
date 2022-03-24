@@ -4,7 +4,7 @@ export default styled.div`
   color: rgb(41, 41, 41);
 
   & > * {
-    padding: 20px;
+    padding: 20px 0;
   }
 
   & > h1 {

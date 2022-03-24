@@ -1,8 +1,8 @@
-import useFocus from "../../lib/hooks/useFocus";
+import useFocus from "../../lib/hooks/use-focus";
 import useCreateStory from "./context/new-story-context";
 import Paragraph from "./styled/paragraph";
-import ReactMarkdown from "react-markdown";
 import styled from "styled-components";
+import RenderMarkDown from "../render-markdown/render-markdown";
 
 const keyboardActions = [13, 38, 40, 8];
 
@@ -38,7 +38,7 @@ export default function Md({ content, isFocus, index }) {
         />
       )}
 
-      {!isFocus && <ReactMarkdown>{content}</ReactMarkdown>}
+      {!isFocus && <RenderMarkDown>{content}</RenderMarkDown>}
     </Container>
   );
 }
