@@ -9,7 +9,7 @@ const handler = globalHandler();
 handler.post(
   withValidation(signupValidation),
   withDatabase,
-  async (req, res, next) => {
+  async (req, res) => {
     const { email, password } = req.body;
 
     const user = await findUserByEmail(req.db, email);

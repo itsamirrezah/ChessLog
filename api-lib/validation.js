@@ -28,3 +28,15 @@ export const clapValidation = {
   },
   required: ["userClaps"],
 };
+
+export const usernameValidity = {
+  type: "object",
+  properties: {
+    username: {
+      type: "string",
+      pattern: "^(?![_.])[a-zA-Z0-9_.]+$",
+      minLength: 3,
+    },
+  },
+  required: ["username"],
+};
