@@ -31,10 +31,4 @@ export const FormControl = styled.div`
     font-size: 1.6rem;
     font-family: "Roboto", sans-serif;
   }
-
-  /* & > [role="alert"] {
-    color: rgb(201, 74, 74);
-    line-height: 20px;
-    font-size: 13px;
-  } */
 `;

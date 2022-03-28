@@ -3,7 +3,7 @@ import SwitchAuth from "./styled/switch-auth";
 import SwitchButton from "./styled/switch-button";
 import { useState } from "react";
 import SignWithEmail from "./sign-with-email";
-import Header from "./styled/header";
+import Header from "../../components/shared/modals/styled/header";
 import useAuth from "../../lib/context/auth-context";
 
 export default function SignUp({ onSwitch }) {

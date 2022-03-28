@@ -1,4 +1,4 @@
-import GettingStartedButton from "../../../components/shared/buttons/getting-started-button";
+import GettingStartedButton from "./getting-started-button";
 
 import styled from "styled-components";
 

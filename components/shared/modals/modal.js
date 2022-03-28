@@ -3,7 +3,9 @@ import styled from "styled-components";
 
 export default function Modal({ children }) {
   return createPortal(
-    <Container>{children}</Container>,
+    <Container>
+      <div>{children}</div>
+    </Container>,
     document.getElementById("modal")
   );
 }
@@ -20,4 +22,14 @@ const Container = styled.div`
   right: 0;
   left: 0;
   background-color: rgba(255, 255, 255, 0.9);
+
+  & > div {
+    width: 67.8rem;
+    height: 200px;
+    background: #ffffff;
+    box-shadow: rgb(0 0 0 / 15%) 0px 2px 10px;
+    border-radius: 5px;
+    min-height: 695px;
+    position: relative;
+  }
 `;

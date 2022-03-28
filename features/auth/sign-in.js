@@ -1,7 +1,7 @@
 import AuthButton from "./styled/auth-button";
 import SwitchAuth from "./styled/switch-auth";
 import SwitchButton from "./styled/switch-button";
-import Header from "./styled/header";
+import Header from "../../components/shared/modals/styled/header";
 import { useState } from "react";
 import SignWithEmail from "./sign-with-email";
 import useAuth from "../../lib/context/auth-context";

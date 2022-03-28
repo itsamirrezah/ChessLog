@@ -1,10 +1,10 @@
-import ContinueButton from "./styled/continue-button";
-import Header from "./styled/header";
+import ContinueButton from "../../components/shared/buttons/continue-button";
+import Header from "../../components/shared/modals/styled/header";
 import ReturnButton from "./styled/return-button";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Form, FormControl } from "./styled/email-form";
-import Alert from "./styled/alert";
+import { Form, FormControl } from "../../components/shared/forms/form";
+import Alert from "../../components/shared/forms/alert";
 
 export default function SignWithEmail({
   onBack,
