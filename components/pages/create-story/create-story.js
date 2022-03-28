@@ -1,13 +1,16 @@
 import CreateStory from "../../../features/create-story/create-story";
 import MainPage from "../../shared/layout/main-content";
 import Layout from "./layout";
-
-export default function CreateStoryPage() {
+import UsernameRequiredModal from "../../../features/username-required/username-required-modal";
+export default function CreateStoryPage({ story, hasUsername }) {
   return (
-    <Layout>
-      <MainPage width={740}>
-        <CreateStory />
-      </MainPage>
-    </Layout>
+    <>
+      <Layout>
+        <MainPage width={740}>
+          <CreateStory story={story} />
+        </MainPage>
+      </Layout>
+      {!hasUsername && <UsernameRequiredModal />}
+    </>
   );
 }

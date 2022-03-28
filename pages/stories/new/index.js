@@ -4,8 +4,8 @@ import { getStoryById } from "../../../api-lib/database/stories";
 import { connectDatabase } from "../../../api-lib/database/utils";
 import CreateStoryPage from "../../../components/pages/create-story/create-story";
 
-export default function NewSto({ storyId }) {
-  return <CreateStoryPage storyId={storyId} />;
+export default function CreateStory({ story, hasUsername }) {
+  return <CreateStoryPage story={story} hasUsername={hasUsername} />;
 }
 
 export async function getServerSideProps(context) {
@@ -19,15 +19,16 @@ export async function getServerSideProps(context) {
       },
     };
   }
-
+  const hasUsername = !!session.user.username;
   const { id } = context.query;
-  if (!id) return { props: {} };
+  if (!id) return { props: { hasUsername } };
 
   const client = await connectDatabase();
+
   const story = await getStoryById(client, id);
   if (!story) return { notFound: true };
 
-  if (story.author.email !== session.user.email) {
+  if (story.author._id !== session.user.id) {
     return {
       redirect: {
         destination: "/not-authorize",
@@ -42,7 +43,8 @@ export async function getServerSideProps(context) {
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
-      storyId: story._id,
+      story,
+      hasUsername,
     },
   };
 }
