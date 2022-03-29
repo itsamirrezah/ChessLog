@@ -6,8 +6,8 @@ export default styled(TextareaAutosize)`
   width: 100%;
   border: hidden;
   color: rgba(0, 0, 0, 0.84);
-  font-size: 21px;
-  line-height: 1.25;
+  font-size: 20px;
+  line-height: 32px;
   font-family: "Roboto", sans-serif;
   letter-spacing: -0.3px;
   min-height: 32px;

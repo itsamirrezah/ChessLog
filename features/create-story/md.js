@@ -44,6 +44,6 @@ export default function Md({ content, isFocus, index }) {
 }
 
 const Container = styled.div`
-  margin-top: 18px;
+  margin: 12px 0;
   min-height: 32px;
 `;

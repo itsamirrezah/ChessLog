@@ -1,11 +1,7 @@
 import styled from "styled-components";
 export default styled.div`
-  padding-top: 24px;
+  padding-top: 20px 0;
   color: rgb(41, 41, 41);
-
-  & > * {
-    padding: 20px 0;
-  }
 
   & > h1 {
     font-size: 32px;
