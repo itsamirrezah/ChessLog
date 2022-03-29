@@ -70,3 +70,39 @@ export async function getStoryBy(client, by) {
   const result = await stories(client).aggregate([{ $match: by }]);
   return result.next();
 }
+
+export async function createStory(client, author) {
+  if (
+    !author ||
+    !author?._id ||
+    !author?.name ||
+    !author?.username ||
+    !author.email
+  )
+    throw new Error("bad request");
+
+  const story = {
+    title: "",
+    content: [
+      { type: "title", content: "" },
+      { type: "header", content: "" },
+      { type: "md", content: "" },
+    ],
+    header: null,
+    excerpt: null,
+    author,
+    slug: null,
+    authorId: ObjectId(author._id),
+    claps: {},
+    allClaps: 0,
+    published: false,
+  };
+
+  const result = await stories(client).insertOne(story);
+
+  if (!result) throw new Error("insert story failed!");
+  //FIXME: don't emit claps//allClaps to client
+  return {
+    ...JSON.parse(JSON.stringify({ _id: result.insertedId, ...story })),
+  };
+}

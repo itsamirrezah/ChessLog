@@ -4,18 +4,19 @@ export default function reducer(state, action) {
   const { type, payload } = action;
 
   if (type === "KEY_PRESS") {
-    console.log("calling key-press", { payload });
     return onKeyPress(payload, state);
   }
 
   if (type === "CHANGE") {
-    console.log("calling change", { payload });
     return onChange(payload, state);
   }
 
   if (type === "FOCUS") {
-    console.log("calling force focus", { payload });
     return { ...state, focus: payload.index };
+  }
+
+  if (type === "LOAD_STORY") {
+    return { ...payload.story };
   }
 
   return state;

@@ -5,21 +5,22 @@ import Header from "./header";
 import Md from "./md";
 
 export default function CreateStory({ story }) {
-  const { story: postStory } = useCreateStory();
+  const { story: postStory } = useCreateStory(story);
 
   return (
     <>
-      {postStory.content.map((p, i) => {
-        const props = {
-          isFocus: postStory.focus === i,
-          index: i,
-          content: p.content,
-        };
+      {postStory?.content &&
+        postStory.content.map((p, i) => {
+          const props = {
+            isFocus: postStory.focus === i,
+            index: i,
+            content: p.content,
+          };
 
-        if (p.type === "title") return <Title {...props} />;
-        else if (p.type === "header") return <Header {...props} />;
-        else return <Md key={i} {...props} />;
-      })}
+          if (p.type === "title") return <Title {...props} />;
+          else if (p.type === "header") return <Header {...props} />;
+          else return <Md key={i} {...props} />;
+        })}
     </>
   );
 }
