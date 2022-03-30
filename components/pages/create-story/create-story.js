@@ -7,7 +7,7 @@ export default function CreateStoryPage({ story, hasUsername }) {
     <>
       <Layout>
         <MainPage width={740}>
-          <CreateStory story={story} />
+          <CreateStory prefetchStory={story} />
         </MainPage>
       </Layout>
       {!hasUsername && <UsernameRequiredModal />}

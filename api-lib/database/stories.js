@@ -93,16 +93,18 @@ export async function createStory(client, author) {
     author,
     slug: null,
     authorId: ObjectId(author._id),
-    claps: {},
-    allClaps: 0,
     published: false,
   };
 
-  const result = await stories(client).insertOne(story);
+  const result = await stories(client).insertOne({
+    ...story,
+    claps: {},
+    allClaps: 0,
+  });
 
   if (!result) throw new Error("insert story failed!");
-  //FIXME: don't emit claps//allClaps to client
   return {
-    ...JSON.parse(JSON.stringify({ _id: result.insertedId, ...story })),
+    _id: result.insertedId,
+    ...story,
   };
 }
