@@ -39,13 +39,14 @@ export default function Item({ story, userId }) {
           </Link>
           <InfoWrapper>
             <Info />
-            <AuthProtected
-              Component={IconBookmark}
-              isFill={story.isSaved}
-              onClick={() =>
-                mutate({ storyId: story._id, isSaved: !story.isSaved })
-              }
-            />
+            <AuthProtected>
+              <IconBookmark
+                isFill={story.isSaved}
+                onClick={() =>
+                  mutate({ storyId: story._id, isSaved: !story.isSaved })
+                }
+              />
+            </AuthProtected>
           </InfoWrapper>
         </Main>
         <div>

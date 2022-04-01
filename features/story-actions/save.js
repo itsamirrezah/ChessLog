@@ -10,11 +10,12 @@ export default function Save({ storyId }) {
   const { mutate: mutateSaveStory } = useSaveStory(user?.id);
 
   return (
-    <AuthProtected
-      Component={IconBookmark}
-      isFill={data?.isBookmark}
-      size="lg"
-      onClick={() => mutateSaveStory({ storyId, isSaved: !data.isBookmark })}
-    />
+    <AuthProtected>
+      <IconBookmark
+        isFill={data?.isBookmark}
+        size="lg"
+        onClick={() => mutateSaveStory({ storyId, isSaved: !data.isBookmark })}
+      />
+    </AuthProtected>
   );
 }

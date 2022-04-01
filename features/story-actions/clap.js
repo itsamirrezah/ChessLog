@@ -8,11 +8,8 @@ export default function Clap({ storyId }) {
   const { data } = useViewerEdgeStory(storyId);
 
   return (
-    <AuthProtected
-      Component={IconClap}
-      isFill={data?.isClap}
-      size="lg"
-      onClick={mutate}
-    />
+    <AuthProtected>
+      <IconClap isFill={data?.isClap} size="lg" onClick={mutate} />
+    </AuthProtected>
   );
 }

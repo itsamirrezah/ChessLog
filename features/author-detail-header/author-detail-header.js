@@ -28,13 +28,14 @@ export default function AuthorDetailHeader({ author }) {
           <Link href="/test.com">About</Link>
         </TextButton>
         {viewerEdge && viewerEdge?.isAllowed && (
-          <AuthProtected
-            Component={FollowButton}
-            variant="green"
-            isFollow={viewerEdge.isViewerFollow}
-            onClick={() => mutate(author._id)}
-          >
-            {viewerEdge.isViewerFollow ? "Following" : "Follow"}
+          <AuthProtected>
+            <FollowButton
+              variant="green"
+              isFollow={viewerEdge.isViewerFollow}
+              onClick={() => mutate(author._id)}
+            >
+              {viewerEdge.isViewerFollow ? "Following" : "Follow"}
+            </FollowButton>
           </AuthProtected>
         )}
       </Items>

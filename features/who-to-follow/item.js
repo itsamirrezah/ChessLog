@@ -17,11 +17,10 @@ export default function Item({ author }) {
         <H2>{author.name}</H2>
         <P>{author.about}</P>
       </Main>
-      <AuthProtected
-        Component={FollowButton}
-        onClick={() => mutate(author._id)}
-      >
-        {isError ? "Error!" : author.isFollowed ? "Following" : "Follow"}
+      <AuthProtected>
+        <FollowButton onClick={() => mutate(author._id)}>
+          {isError ? "Error!" : author.isFollowed ? "Following" : "Follow"}
+        </FollowButton>
       </AuthProtected>
     </Container>
   );
