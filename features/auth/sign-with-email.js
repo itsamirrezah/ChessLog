@@ -40,6 +40,7 @@ export default function SignWithEmail({
               })}
               id="email"
               placeholder="email@example.com"
+              autoComplete="off"
             />
             <Alert role="alert">{errors?.email && errors.email.message}</Alert>
           </FormControl>

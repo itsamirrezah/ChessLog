@@ -14,7 +14,7 @@ export default function SignUp({ onSwitch }) {
     <>
       {!isSignup && (
         <>
-          <Header>Join Medium.</Header>
+          <Header>Join.</Header>
           <AuthButton onClick={() => setSignUp(true)}>
             Sign up with email
           </AuthButton>

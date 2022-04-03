@@ -1,9 +1,8 @@
-import Avatar from "../../components/shared/avatar/avatar";
 import GettingStartedButton from "../../components/shared/buttons/getting-started-button";
 import useAuth from "../../lib/context/auth-context";
-
+import UserMenu from "./user-menu";
 export default function UserActionHeader() {
-  const { isSessionLoading, isAuth, showModal, signOut } = useAuth();
+  const { isSessionLoading, isAuth, showModal, signOut, user } = useAuth();
 
   return (
     <>
@@ -12,8 +11,7 @@ export default function UserActionHeader() {
           Get Started
         </GettingStartedButton>
       )}
-      {isAuth && <Avatar src="/cover.jpg" size={28} />}
-      {isAuth && <button onClick={signOut}>logout</button>}
+      {isAuth && <UserMenu signOut={signOut} user={user} />}
     </>
   );
 }

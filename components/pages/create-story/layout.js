@@ -2,10 +2,10 @@ import Container from "../../shared/layout/container";
 import Navigation from "../../shared/nav/container";
 import Logo from "../../shared/nav/logo";
 import Spacer from "../../shared/dividers/spacer";
-import Avatar from "../../shared/avatar/avatar";
 import PublishButton from "../../shared/buttons/publish-button";
 import Items from "../../shared/nav/items";
 import { NewStoryProvider } from "../../../features/create-story/context/new-story-context";
+import UserActionHeader from "../../../features/user-actions-header/user-action-header";
 
 export default function Layout({ children }) {
   // context new story
@@ -17,7 +17,7 @@ export default function Layout({ children }) {
           <Spacer variant="flex" />
           <Items>
             <PublishButton>Publish</PublishButton>
-            <Avatar src="/cover.jpg" size={28} />
+            <UserActionHeader />
           </Items>
         </Navigation>
         <main>{children}</main>

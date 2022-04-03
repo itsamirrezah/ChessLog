@@ -1,7 +1,6 @@
 import { Children } from "react";
 import useAuth from "../../../lib/context/auth-context";
 
-// { Component, onClick, ...rest, children }
 export default function AuthProtected(props) {
   const { showModal, isAuth, isSessionLoading } = useAuth();
 
@@ -15,10 +14,4 @@ export default function AuthProtected(props) {
       }
     />
   );
-  // return (
-  //   <Component
-  //     onClick={isSessionLoading ? null : !isAuth ? showModal : onClick}
-  //     {...rest}
-  //   />
-  // );
 }
