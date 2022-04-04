@@ -4,8 +4,7 @@ import Header from "./header";
 import Md from "./md";
 
 export default function CreateStory({ prefetchStory }) {
-  const { story } = useCreateStory(prefetchStory);
-
+  const { story, dispatch } = useCreateStory(prefetchStory);
   return (
     <>
       {story &&
@@ -14,6 +13,7 @@ export default function CreateStory({ prefetchStory }) {
             isFocus: story.focus === i,
             index: i,
             content: p.content,
+            dispatch,
           };
 
           if (p.type === "title") return <Title {...props} />;

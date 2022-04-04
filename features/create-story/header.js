@@ -1,20 +1,26 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Container from "./styled/header";
 import AspectImage from "../../components/shared/image/aspect-image";
-import useCreateStory from "./context/new-story-context";
 import useFocus from "../../lib/hooks/use-focus";
+import useUploadImage from "../../lib/services/upload-image";
 
 const keyboardActions = [13, 38, 40];
 
-export default function Header({ content, onChange, isFocus, index }) {
+export default function Header({ content, isFocus, index, dispatch }) {
   const inputRef = useRef();
-  const { dispatch } = useCreateStory();
   const { ref: focusRef } = useFocus(isFocus);
+  const { mutate, localFile, isSuccess, isLoading, data } = useUploadImage();
 
   function onSelectedHandler(e) {
-    const file = e.target.files[0];
-    if (file) onChange(URL.createObjectURL(file));
+    const file = e.target.files.item(0);
+    mutate(file);
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch({ type: "CHANGE", payload: { value: data.imgUrl, index } });
+    }
+  }, [isSuccess]);
 
   return (
     <>
@@ -25,6 +31,7 @@ export default function Header({ content, onChange, isFocus, index }) {
         onChange={onSelectedHandler}
       />
       <Container
+        style={{ filter: isLoading ? "blur(5px)" : "blur(0px)" }}
         ref={focusRef}
         onClick={() =>
           isFocus
@@ -37,7 +44,13 @@ export default function Header({ content, onChange, isFocus, index }) {
         }}
         tabIndex={0}
       >
-        <AspectImage src={content || "/cover.jpg"} />
+        <AspectImage
+          src={
+            (localFile && URL.createObjectURL(localFile)) ||
+            content ||
+            "/cover.jpg"
+          }
+        />
       </Container>
     </>
   );

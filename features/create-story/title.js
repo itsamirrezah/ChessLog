@@ -5,8 +5,7 @@ import Paragraph from "./styled/paragraph";
 
 const keyboardActions = [13, 38, 40];
 
-export default function Title({ content, isFocus, index }) {
-  const { dispatch } = useCreateStory();
+export default function Title({ content, isFocus, index, dispatch }) {
   const { ref: focusRef } = useFocus(isFocus);
 
   return (
@@ -22,7 +21,9 @@ export default function Title({ content, isFocus, index }) {
           payload: { key: e.keyCode, cursorSelection: e.target.selectionEnd },
         });
       }}
-      onChange={(e) => dispatch({ type: "CHANGE", payload: e.target.value })}
+      onChange={(e) =>
+        dispatch({ type: "CHANGE", payload: { value: e.target.value } })
+      }
       ref={focusRef}
       value={content}
     />

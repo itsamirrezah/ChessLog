@@ -7,7 +7,7 @@ handler.post(
   withImageParser,
   withCloudinary("foo/test/hello/hello/"),
   (req, res) => {
-    res.status(200).json({ cloudinary: req.cloudinaryUrl });
+    res.status(200).json({ imgUrl: req.cloudinaryUrl });
   }
 );
 

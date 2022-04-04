@@ -6,8 +6,7 @@ import RenderMarkDown from "../render-markdown/render-markdown";
 
 const keyboardActions = [13, 38, 40, 8];
 
-export default function Md({ content, isFocus, index }) {
-  const { dispatch } = useCreateStory();
+export default function Md({ content, isFocus, index, dispatch }) {
   const { ref: focusRef } = useFocus(isFocus);
 
   return (
@@ -31,7 +30,7 @@ export default function Md({ content, isFocus, index }) {
             });
           }}
           onChange={(e) => {
-            dispatch({ type: "CHANGE", payload: e.target.value });
+            dispatch({ type: "CHANGE", payload: { value: e.target.value } });
           }}
           ref={focusRef}
           value={content}

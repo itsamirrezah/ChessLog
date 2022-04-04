@@ -7,6 +7,7 @@ export default function AspectImage({ ...props }) {
   return (
     <Container w={width}>
       <Extender height={ratio} />
+      {/* FIXME: use next/image */}
       <img onLoad={onImageLoad} ref={ref} {...props} />
     </Container>
   );

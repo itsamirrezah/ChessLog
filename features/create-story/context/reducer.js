@@ -102,13 +102,17 @@ function onKeyPress(payload, state) {
 
 function onChange(payload, state) {
   let newContent = List(state.content);
-  const item = state.content[state.focus];
+  const index = payload?.index || state.focus;
+  const item = state.content[index];
 
-  if (!payload.trim() && !item.content) return state;
+  if (item.type !== "header" && !payload.value.trim() && !item.content)
+    return state;
 
-  newContent = newContent.set(state.focus, { ...item, content: payload });
+  newContent = newContent.set(index, { ...item, content: payload.value });
   return {
     ...state,
     content: newContent.toJS(),
+    title: item.type === "title" ? payload.value : state.title,
+    header: item.type === "header" ? payload.value : state.header,
   };
 }

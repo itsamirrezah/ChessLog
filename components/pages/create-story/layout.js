@@ -4,24 +4,23 @@ import Logo from "../../shared/nav/logo";
 import Spacer from "../../shared/dividers/spacer";
 import PublishButton from "../../shared/buttons/publish-button";
 import Items from "../../shared/nav/items";
-import { NewStoryProvider } from "../../../features/create-story/context/new-story-context";
+import useCreateStory from "../../../features/create-story/context/new-story-context";
 import UserActionHeader from "../../../features/user-actions-header/user-action-header";
 
 export default function Layout({ children }) {
   // context new story
+  const { publish } = useCreateStory();
   return (
-    <NewStoryProvider>
-      <Container>
-        <Navigation height={65} isFixed>
-          <Logo />
-          <Spacer variant="flex" />
-          <Items>
-            <PublishButton>Publish</PublishButton>
-            <UserActionHeader />
-          </Items>
-        </Navigation>
-        <main>{children}</main>
-      </Container>
-    </NewStoryProvider>
+    <Container>
+      <Navigation height={65} isFixed>
+        <Logo />
+        <Spacer variant="flex" />
+        <Items>
+          <PublishButton disabled={!publish}>Publish</PublishButton>
+          <UserActionHeader />
+        </Items>
+      </Navigation>
+      <main>{children}</main>
+    </Container>
   );
 }

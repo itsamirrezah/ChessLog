@@ -22,5 +22,15 @@ export default function useCreateStory(story) {
     ctx.dispatch({ type: "LOAD_STORY", payload: { story } });
   }, []);
 
-  return ctx;
+  return {
+    ...ctx,
+    publish:
+      ctx &&
+      ctx.story &&
+      ctx.story.title &&
+      ctx.story.header &&
+      ctx.story.content.length > 3
+        ? true
+        : false,
+  };
 }
