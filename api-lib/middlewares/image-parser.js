@@ -1,21 +1,10 @@
-import formidable from "formidable";
-import path from "path";
+import multer from "multer";
+
+const upload = multer({ storage: multer.memoryStorage() }).single("image");
 
 export default function withImageParser(req, res, next) {
-  const form = new formidable.IncomingForm({
-    multiples: false,
-    uploadDir: path.join(process.cwd(), "public", "images", "posts"),
-    keepExtensions: true,
-  });
-
-  form.parse(req, (err, fields, files) => {
-    if (err) {
-      return res
-        .status(422)
-        .json({ message: "something went wrong while parsing image." });
-    }
-    req.body = fields;
-    req.files = files;
+  return upload(req, res, function (err) {
+    if (err) return res.status(500).json({ message: err });
     next();
   });
 }

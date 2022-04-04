@@ -31,6 +31,9 @@ export async function getServerSideProps(context) {
     });
     return {
       props: { story: JSON.parse(JSON.stringify(story)), hasUsername },
+      redirect: {
+        destination: `/stories/edit/${story._id}`,
+      },
     };
   }
 

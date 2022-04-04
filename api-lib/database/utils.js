@@ -9,7 +9,7 @@ export async function connectDatabase() {
 }
 
 export function stories(client) {
-  return client.db().collection("posts");
+  return client.db().collection("stories");
 }
 
 export function userRelations(client) {
