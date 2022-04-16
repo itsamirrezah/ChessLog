@@ -6,10 +6,12 @@ import useUploadImage from "../../lib/services/upload-image";
 
 const keyboardActions = [13, 38, 40];
 
-export default function Header({ content, isFocus, index, dispatch }) {
+export default function Header({ content, isFocus, index, dispatch, storyId }) {
   const inputRef = useRef();
   const { ref: focusRef } = useFocus(isFocus);
-  const { mutate, localFile, isSuccess, isLoading, data } = useUploadImage();
+  const { mutate, localFile, isSuccess, isLoading, data } = useUploadImage(
+    `/stories/${storyId}`
+  );
 
   function onSelectedHandler(e) {
     const file = e.target.files.item(0);

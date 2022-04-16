@@ -108,3 +108,23 @@ export async function createStory(client, author) {
     ...story,
   };
 }
+
+export async function updateStory(client, story, id) {
+  if (story._id) throw new Error("bad request");
+
+  const result = await stories(client).updateOne(
+    { _id: ObjectId(id) },
+    {
+      $set: {
+        ...story,
+        authorId: ObjectId(story.authorId),
+        author: {
+          ...story.author,
+          _id: ObjectId(story.author._id),
+        },
+      },
+    }
+  );
+
+  return result;
+}

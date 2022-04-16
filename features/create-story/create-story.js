@@ -14,6 +14,7 @@ export default function CreateStory({ prefetchStory }) {
             index: i,
             content: p.content,
             dispatch,
+            storyId: story._id,
           };
 
           if (p.type === "title") return <Title {...props} />;
