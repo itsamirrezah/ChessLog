@@ -6,7 +6,7 @@ export default forwardRef(function Popup(props, ref) {
   const children = Children.toArray(props.children);
 
   return (
-    <Container ref={ref}>
+    <Container ref={ref} style={{ ...props.style }}>
       {children.map((child) => {
         if (child.type.name === Pop.name && !props.in) return;
         else return child;

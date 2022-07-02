@@ -7,7 +7,7 @@ import Items from "../../shared/nav/items";
 import useCreateStory from "../../../features/create-story/context/new-story-context";
 import UserActionHeader from "../../../features/user-actions-header/user-action-header";
 import { useState } from "react";
-import ConfirmationModal from "../../../features/create-story/confirmation-modal";
+import ConfirmationModal from "../../../features/story-confirmation/confirmation-modal";
 
 export default function Layout({ children }) {
   const { enabled, dispatch, onPublishHandler } = useCreateStory();
@@ -29,7 +29,7 @@ export default function Layout({ children }) {
         </Items>
       </Navigation>
       <main>{children}</main>
-      {isModalShown && (
+      {true && (
         <ConfirmationModal
           onClose={() => setModalShown(false)}
           onConfirmPublish={onPublishHandler}
