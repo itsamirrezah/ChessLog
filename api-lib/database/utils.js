@@ -16,6 +16,10 @@ export function userRelations(client) {
   return client.db().collection("user-relations");
 }
 
+export function tags(client) {
+  return client.db().collection("tags");
+}
+
 export function users(client) {
   return client.db().collection("users");
 }
@@ -78,4 +82,8 @@ export function join(
     },
     ...(unwindAfterJoin ? [{ $unwind: `$${as}` }] : []),
   ];
+}
+
+export function multipleOpFromList(list, callback){
+  return list.map((it)=> callback(it))
 }

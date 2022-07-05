@@ -1,5 +1,12 @@
 import { ObjectId } from "mongodb";
-import { stories, userRelations, pagination, join } from "./utils";
+import {
+  stories,
+  userRelations,
+  pagination,
+  join,
+  tags,
+  multipleOpFromList,
+} from "./utils";
 
 export async function getTimeline(client, userId, page, skip, limit) {
   const result = await userRelations(client).aggregate([
@@ -125,6 +132,21 @@ export async function updateStory(client, story, id) {
       },
     }
   );
+
+  try {
+    const tagsHash = await story.tags.map((it) => ({ name: it, hit: 1 }));
+    const d = await tags(client).bulkWrite(
+      multipleOpFromList(tagsHash, (it) => ({
+        updateOne: {
+          filter: { name: it.name },
+          update: { $inc: { hit: 1 } },
+          upsert: true,
+        },
+      }))
+    );
+  } catch (e) {
+    console.error(e.message);
+  }
 
   return result;
 }
