@@ -10,7 +10,7 @@ import { useState } from "react";
 import ConfirmationModal from "../../../features/story-confirmation/confirmation-modal";
 
 export default function Layout({ children }) {
-  const { enabled, dispatch, onPublishHandler } = useCreateStory();
+  const { enabled, dispatch, onPublishHandler, story } = useCreateStory();
   const [isModalShown, setModalShown] = useState();
 
   return (
@@ -29,11 +29,12 @@ export default function Layout({ children }) {
         </Items>
       </Navigation>
       <main>{children}</main>
-      {true && (
+      {isModalShown && (
         <ConfirmationModal
           onClose={() => setModalShown(false)}
           onConfirmPublish={onPublishHandler}
           dispatch={dispatch}
+          story={story}
         />
       )}
     </Container>

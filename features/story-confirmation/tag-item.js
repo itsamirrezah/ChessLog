@@ -1,7 +1,21 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export default function TagItem({ children }) {
-  return <Container>{children}</Container>;
+export default function TagItem({
+  children,
+  removeTag,
+  isSelected,
+  setSelected,
+}) {
+  function onClickHandler(e) {
+    e.preventDefault();
+    if (!isSelected) setSelected(true);
+    else removeTag();
+  }
+  return (
+    <Container onClick={onClickHandler} isSelected={isSelected}>
+      {children}
+    </Container>
+  );
 }
 const Container = styled.button`
   background-color: #fff;
@@ -11,4 +25,15 @@ const Container = styled.button`
   margin-right: 4px;
   display: inline-block;
   cursor: pointer;
+
+  &:hover {
+    border-color: rgba(0, 0, 0, 0.3);
+  }
+
+  ${({ isSelected }) => isSelected && isSelectedStyled}
+`;
+
+const isSelectedStyled = css`
+  background-color: green;
+  color: #ffffff;
 `;

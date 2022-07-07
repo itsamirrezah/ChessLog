@@ -96,11 +96,12 @@ export async function createStory(client, author) {
       { type: "md", content: "" },
     ],
     header: null,
-    excerpt: null,
+    excerpt: "",
     author,
     slug: null,
     authorId: ObjectId(author._id),
     published: false,
+    tags: [],
   };
 
   const result = await stories(client).insertOne({

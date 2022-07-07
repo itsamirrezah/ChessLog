@@ -1,8 +1,13 @@
 import styled from "styled-components";
+import { forwardRef } from "react";
 
-export default function EditableSpan({ style, onChange, placeholder }) {
+// export default forwardRef(function Hero(_, ref) {
+
+export default forwardRef(function EditableSpan(props, ref) {
+  const { style, onChange, placeholder } = props;
   return (
     <SpanStyled
+      ref={ref}
       style={{ ...style, display: "inline-block" }}
       placeholder={placeholder}
       contentEditable
@@ -10,7 +15,7 @@ export default function EditableSpan({ style, onChange, placeholder }) {
       suppressContentEditableWarning={true}
     />
   );
-}
+});
 
 const SpanStyled = styled.span`
   &:empty::before {

@@ -1,25 +1,35 @@
 import Pop from "../popup/pop";
 import Popup from "../popup/popup";
 import Trigger from "../popup/trigger";
-import EditableSpan from "../editable-span/editable-span";
 import SearchTooltip from "./styled/search-tooltip";
 import SearchItem from "./styled/search-item";
+import { useRef, useState } from "react";
+import EditableSpan from "../editable-span/editable-span";
+import useSearchTag from "../../lib/services/search-tag";
 
-const dummy = [
-  { id: 1, name: "Hello World in Flutter" },
-  { id: 2, name: "What the Heck is" },
-  { id: 3, name: "WhatsApp Tips And Tricks" },
-  { id: 4, name: "Javascript" },
-];
+export default function SelectTag({ selectedTags, addTag }) {
+  const [searchTag, setSearchTag] = useState("");
+  const { data, isError, isSuccess } = useSearchTag(searchTag);
+  const ref = useRef();
 
-export default function SelectTag() {
+  function addTagHandler(tag) {
+    addTag(tag);
+    ref.current.textContent = "";
+    setSearchTag("");
+  }
   function onChange(e) {
-    // setInput(e.target.textContent);
+    const input = e.target.textContent;
+    setSearchTag(input);
+    if (input.charAt(input.length - 1) === ",") {
+      const tag = input.substring(0, input.length - 1);
+      addTagHandler(tag);
+    }
   }
   return (
-    <Popup in={true} style={{ display: "inline-block" }}>
+    <Popup in={!!data} style={{ display: "inline-block" }}>
       <Trigger>
         <EditableSpan
+          ref={ref}
           style={{
             background: "transparent",
             border: "hidden",
@@ -34,9 +44,18 @@ export default function SelectTag() {
       </Trigger>
       <Pop>
         <SearchTooltip>
-          {dummy.map((it) => (
-            <SearchItem key={it.id}>{it.name}</SearchItem>
-          ))}
+          {data &&
+            data.map(
+              (it) =>
+                !selectedTags.includes(it.name) && (
+                  <SearchItem
+                    key={it._id}
+                    onClick={() => addTagHandler(it.name)}
+                  >
+                    {it.name}
+                  </SearchItem>
+                )
+            )}
         </SearchTooltip>
       </Pop>
     </Popup>
