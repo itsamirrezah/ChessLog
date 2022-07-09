@@ -7,6 +7,7 @@ import Divider from "../../components/shared/dividers/line";
 import Link from "next/link";
 import { useState } from "react";
 import useOutsideClick from "../../lib/hooks/use-outside-click";
+import Tooltip from "../../components/shared/tooltip/tooltip";
 
 export default function UserMenu({ signOut, user }) {
   const [menuShown, setMenuShown] = useState(false);
@@ -18,23 +19,25 @@ export default function UserMenu({ signOut, user }) {
         <Avatar src="/cover.jpg" size={28} />
       </Trigger>
       <Pop>
-        <Container>
-          <ul>
-            <MenuItem>
-              <Link href="/stories/new">New story</Link>
-            </MenuItem>
-            <MenuItem onClick={signOut}>Sign out</MenuItem>
-          </ul>
-          <Divider space="24" />
+        <Tooltip>
+          <Container>
+            <ul>
+              <MenuItem>
+                <Link href="/stories/new">New story</Link>
+              </MenuItem>
+              <MenuItem onClick={signOut}>Sign out</MenuItem>
+            </ul>
+            <Divider space="24" />
 
-          <UserInfo>
-            <Avatar src="/cover.jpg" size={32} />
-            <div>
-              <p>{user.name}</p>
-              <p>{`@${user.username}` || user.email}</p>
-            </div>
-          </UserInfo>
-        </Container>
+            <UserInfo>
+              <Avatar src="/cover.jpg" size={32} />
+              <div>
+                <p>{user.name}</p>
+                <p>{`@${user.username}` || user.email}</p>
+              </div>
+            </UserInfo>
+          </Container>
+        </Tooltip>
       </Pop>
     </Popup>
   );

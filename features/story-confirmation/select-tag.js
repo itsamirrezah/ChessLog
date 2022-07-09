@@ -6,6 +6,7 @@ import SearchItem from "./styled/search-item";
 import { useRef, useState } from "react";
 import EditableSpan from "../editable-span/editable-span";
 import useSearchTag from "../../lib/services/search-tag";
+import Tooltip from "../../components/shared/tooltip/tooltip";
 
 export default function SelectTag({ selectedTags, addTag }) {
   const [searchTag, setSearchTag] = useState("");
@@ -43,20 +44,22 @@ export default function SelectTag({ selectedTags, addTag }) {
         />
       </Trigger>
       <Pop>
-        <SearchTooltip>
-          {data &&
-            data.map(
-              (it) =>
-                !selectedTags.includes(it.name) && (
-                  <SearchItem
-                    key={it._id}
-                    onClick={() => addTagHandler(it.name)}
-                  >
-                    {it.name}
-                  </SearchItem>
-                )
-            )}
-        </SearchTooltip>
+        <Tooltip>
+          <SearchTooltip>
+            {data &&
+              data.map(
+                (it) =>
+                  !selectedTags.includes(it.name) && (
+                    <SearchItem
+                      key={it._id}
+                      onClick={() => addTagHandler(it.name)}
+                    >
+                      {it.name}
+                    </SearchItem>
+                  )
+              )}
+          </SearchTooltip>
+        </Tooltip>
       </Pop>
     </Popup>
   );

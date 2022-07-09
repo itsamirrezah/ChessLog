@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import useFocus from "../../lib/hooks/use-focus";
-import useCreateStory from "./context/new-story-context";
 import Paragraph from "./styled/paragraph";
 
 const keyboardActions = [13, 38, 40];
