@@ -3,13 +3,14 @@ import Container from "./styled/header";
 import AspectImage from "../../components/shared/image/aspect-image";
 import useFocus from "../../lib/hooks/use-focus";
 import useUploadImage from "../../lib/services/upload-image";
+import Input from "../../components/shared/input/input";
 
 const keyboardActions = [13, 38, 40];
 
 export default function Header({ content, isFocus, index, dispatch, storyId }) {
   const inputRef = useRef();
   const { ref: focusRef } = useFocus(isFocus);
-  const { mutate, localFile, isSuccess, isLoading, data } = useUploadImage(
+  const { mutate, isSuccess, isLoading, data } = useUploadImage(
     `/stories/${storyId}`
   );
 
@@ -19,19 +20,18 @@ export default function Header({ content, isFocus, index, dispatch, storyId }) {
   }
 
   useEffect(() => {
+    if (typeof content === "string") return;
+    mutate(content);
+  }, [content]);
+
+  useEffect(() => {
     if (isSuccess) {
       dispatch({ type: "CHANGE", payload: { value: data.imgUrl, index } });
     }
   }, [isSuccess]);
 
   return (
-    <>
-      <input
-        type="file"
-        ref={inputRef}
-        style={{ display: "none" }}
-        onChange={onSelectedHandler}
-      />
+    <Input inputRef={inputRef} onChange={onSelectedHandler}>
       <Container
         style={{ filter: isLoading ? "blur(5px)" : "blur(0px)" }}
         ref={focusRef}
@@ -48,12 +48,13 @@ export default function Header({ content, isFocus, index, dispatch, storyId }) {
       >
         <AspectImage
           src={
-            (localFile && URL.createObjectURL(localFile)) ||
-            content ||
-            "/cover.jpg"
+            (content &&
+              typeof content !== "string" &&
+              URL.createObjectURL(content)) ||
+            content
           }
         />
       </Container>
-    </>
+    </Input>
   );
 }

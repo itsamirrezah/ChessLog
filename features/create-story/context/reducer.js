@@ -19,6 +19,21 @@ export default function reducer(state, action) {
     return { ...payload.story };
   }
 
+  if (type === "ADD_IMAGE") {
+    let newContent = List(state.content);
+    const index = payload?.index;
+    const item = state.content[index];
+    newContent = newContent.set(index, {
+      ...item,
+      type: "header",
+      content: payload.value,
+    });
+    return {
+      ...state,
+      content: newContent.toJS(),
+    };
+  }
+
   return state;
 }
 

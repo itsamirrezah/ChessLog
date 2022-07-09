@@ -92,7 +92,6 @@ export async function createStory(client, author) {
     title: "",
     content: [
       { type: "title", content: "" },
-      { type: "header", content: "" },
       { type: "md", content: "" },
     ],
     header: null,
