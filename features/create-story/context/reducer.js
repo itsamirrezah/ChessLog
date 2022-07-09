@@ -19,21 +19,6 @@ export default function reducer(state, action) {
     return { ...payload.story };
   }
 
-  if (type === "ADD_IMAGE") {
-    let newContent = List(state.content);
-    const index = payload?.index;
-    const item = state.content[index];
-    newContent = newContent.set(index, {
-      ...item,
-      type: "header",
-      content: payload.value,
-    });
-    return {
-      ...state,
-      content: newContent.toJS(),
-    };
-  }
-
   return state;
 }
 
@@ -120,14 +105,17 @@ function onChange(payload, state) {
   const index = payload?.index || state.focus;
   const item = state.content[index];
 
-  if (item.type !== "header" && !payload.value.trim() && !item.content)
+  if (
+    payload.value.type !== "header" &&
+    !payload.value.content.trim() &&
+    !item.content
+  )
     return state;
 
-  newContent = newContent.set(index, { ...item, content: payload.value });
+  newContent = newContent.set(index, { ...item, ...payload.value });
   return {
     ...state,
     content: newContent.toJS(),
-    title: item.type === "title" ? payload.value : state.title,
-    header: item.type === "header" ? payload.value : state.header,
+    title: item.type === "title" ? payload.value.content : state.title,
   };
 }

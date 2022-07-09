@@ -5,6 +5,7 @@ import Md from "./md";
 
 export default function CreateStory({ prefetchStory }) {
   const { story, dispatch } = useCreateStory(prefetchStory);
+
   return (
     <>
       {story &&

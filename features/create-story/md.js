@@ -13,7 +13,14 @@ export default function Md({ content, isFocus, index, dispatch }) {
   const { ref: focusRef } = useFocus(isFocus);
 
   function onAddImageHandler(imageFile) {
-    dispatch({ type: "ADD_IMAGE", payload: { index, value: imageFile } });
+    if (!imageFile) return;
+    dispatch({
+      type: "CHANGE",
+      payload: {
+        value: { type: "header", content: imageFile },
+        index,
+      },
+    });
   }
 
   return (
@@ -41,7 +48,7 @@ export default function Md({ content, isFocus, index, dispatch }) {
               onChange={(e) => {
                 dispatch({
                   type: "CHANGE",
-                  payload: { value: e.target.value },
+                  payload: { value: { type: "md", content: e.target.value } },
                 });
               }}
               ref={focusRef}

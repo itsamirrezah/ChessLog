@@ -16,7 +16,14 @@ export default function Header({ content, isFocus, index, dispatch, storyId }) {
 
   function onSelectedHandler(e) {
     const file = e.target.files.item(0);
-    mutate(file);
+    if (!file) return;
+    dispatch({
+      type: "CHANGE",
+      payload: {
+        value: { type: "header", content: file },
+        index,
+      },
+    });
   }
 
   useEffect(() => {
@@ -26,7 +33,13 @@ export default function Header({ content, isFocus, index, dispatch, storyId }) {
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch({ type: "CHANGE", payload: { value: data.imgUrl, index } });
+      dispatch({
+        type: "CHANGE",
+        payload: {
+          value: { type: "header", content: data.imgUrl },
+          index,
+        },
+      });
     }
   }, [isSuccess]);
 

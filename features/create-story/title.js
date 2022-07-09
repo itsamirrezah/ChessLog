@@ -21,7 +21,10 @@ export default function Title({ content, isFocus, index, dispatch }) {
         });
       }}
       onChange={(e) =>
-        dispatch({ type: "CHANGE", payload: { value: e.target.value } })
+        dispatch({
+          type: "CHANGE",
+          payload: { value: { type: "title", content: e.target.value } },
+        })
       }
       ref={focusRef}
       value={content}

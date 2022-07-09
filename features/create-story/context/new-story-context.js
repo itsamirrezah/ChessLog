@@ -14,7 +14,7 @@ export function NewStoryProvider({ children }) {
   function onPublishHandler(excerpt, tags) {
     const remoteStory = {
       title: story.title,
-      header: story.header,
+      header: story.content.find((it) => it.type === "header")?.content || null,
       content: story.content,
       published: story.published,
       author: story.author,
@@ -33,10 +33,9 @@ export function NewStoryProvider({ children }) {
     }
   }, [isSuccess]);
 
+  console.log({ story });
   const enabled =
-    story && story.title && story.header && story.content.length > 3
-      ? true
-      : false;
+    story && story.title && story.content.length > 3 ? true : false;
   return (
     <NewStoryContext.Provider
       value={{ story, enabled, dispatch, onPublishHandler }}
