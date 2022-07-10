@@ -12,8 +12,8 @@ export default function RecentlySaved({ userId }) {
   return (
     <div>
       <Header>Recently Saved</Header>
-      {data.stories.map((post) => (
-        <Item key={post._id} item={post} />
+      {data.stories.map((story) => (
+        <Item key={story._id} item={story} />
       ))}
       <Link href={`/users/${userId}/saved`}>
         <a>

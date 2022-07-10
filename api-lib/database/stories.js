@@ -11,9 +11,9 @@ import {
 export async function getTimeline(client, userId, page, skip, limit) {
   const result = await userRelations(client).aggregate([
     {
-      $match: { t: ObjectId(userId) },
+      $match: { t: ObjectId(userId), f: { $ne: ObjectId(userId) } },
     },
-    ...join("posts", "f", "authorId", "stories"),
+    ...join("stories", "f", "authorId", "stories"),
     { $replaceRoot: { newRoot: "$stories" } },
     { $project: { content: 0, authorId: 0 } },
     // FIXME: sort by date

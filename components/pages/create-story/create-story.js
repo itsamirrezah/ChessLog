@@ -8,11 +8,13 @@ export default function CreateStoryPage({ story, hasUsername }) {
   return (
     <NewStoryProvider>
       <>
-        <Layout>
-          <MainPage width={740}>
-            <CreateStory prefetchStory={story} />
-          </MainPage>
-        </Layout>
+        {hasUsername && (
+          <Layout>
+            <MainPage width={740}>
+              <CreateStory prefetchStory={story} />
+            </MainPage>
+          </Layout>
+        )}
         {!hasUsername && <UsernameRequiredModal />}
       </>
     </NewStoryProvider>

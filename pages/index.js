@@ -21,9 +21,12 @@ export async function getServerSideProps({ req }) {
   const client = await connectDatabase();
   const queryClient = new QueryClient();
   const recentlyStories = await getRecentlyStories(client, 0, 0, 4);
+
   await queryClient.prefetchQuery("blogs", () =>
     // FIXME: look for simpler solution
-    JSON.parse(JSON.stringify(recentlyStories))
+    ({
+      pages: [JSON.parse(JSON.stringify(recentlyStories))],
+    })
   );
 
   return {

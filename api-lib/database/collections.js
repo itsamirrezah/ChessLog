@@ -40,7 +40,7 @@ export async function getRecentlySavedStories(client, userId) {
         totalCount: [{ $count: "total" }],
         stories: [
           { $project: { k: { $toObjectId: "$k" } } },
-          ...join("posts", "k", "_id", "stories"),
+          ...join("stories", "k", "_id", "stories"),
           { $replaceRoot: { newRoot: "$stories" } },
           { $project: { content: 0, authorId: 0 } },
           { $limit: 5 },

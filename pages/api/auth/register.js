@@ -1,4 +1,4 @@
-import { findUserByEmail, insertUser } from "../../../api-lib/database/_users";
+import { insertUser, findUserByEmail } from "../../../api-lib/database/users";
 import withDatabase from "../../../api-lib/middlewares/database";
 import globalHandler from "../../../api-lib/nc";
 import { signupValidation } from "../../../api-lib/validation";

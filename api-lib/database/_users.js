@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+// import bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
 
 // export async function findUserByEmailAndPassword(client, email, password) {
@@ -9,32 +9,26 @@ import { ObjectId } from "mongodb";
 //   return { ...user, password: undefined };
 // }
 
-export async function findUserByEmail(client, email) {
-  const users = client.db().collection("users");
-  const user = await users.findOne({ email });
-  return user;
-}
-
 // export async function getUserById(client, userId) {
 //   const users = client.db().collection("users");
 //   const user = await users.findOne({ _id: ObjectId(userId) });
 //   return user;
 // }
 
-export async function insertUser(client, email, password) {
-  const hash = await bcrypt.hash(password, 12);
-  const collection = client.db().collection("users");
-  const { insertedId } = await collection.insertOne({
-    email,
-    password: hash,
-    username: null,
-    name: "Anonymous",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    about: null,
-  });
-  return insertedId;
-}
+// export async function insertUser(client, email, password) {
+//   const hash = await bcrypt.hash(password, 12);
+//   const collection = client.db().collection("users");
+//   const { insertedId } = await collection.insertOne({
+//     email,
+//     password: hash,
+//     username: null,
+//     name: "Anonymous",
+//     createdAt: new Date(),
+//     updatedAt: new Date(),
+//     about: null,
+//   });
+//   return insertedId;
+// }
 
 // export async function getUserFollowingIds(client, userId) {
 //   const userRelation = client.db().collection("user-relations");
@@ -46,34 +40,34 @@ export async function insertUser(client, email, password) {
 //   return result.map((d) => d.f);
 // }
 
-export async function getUserFollowing(client, userId) {
-  const userRelation = client.db().collection("user-relations");
-  const result = await userRelation
-    .aggregate([
-      {
-        $match: {
-          t: ObjectId(userId),
-        },
-      },
-      {
-        $lookup: {
-          from: "users",
-          localField: "f",
-          foreignField: "_id",
-          as: "following",
-        },
-      },
-      { $unwind: "$following" },
-      {
-        $project: {
-          "following._id": 1,
-        },
-      },
-    ])
-    .toArray();
+// export async function getUserFollowing(client, userId) {
+//   const userRelation = client.db().collection("user-relations");
+//   const result = await userRelation
+//     .aggregate([
+//       {
+//         $match: {
+//           t: ObjectId(userId),
+//         },
+//       },
+//       {
+//         $lookup: {
+//           from: "users",
+//           localField: "f",
+//           foreignField: "_id",
+//           as: "following",
+//         },
+//       },
+//       { $unwind: "$following" },
+//       {
+//         $project: {
+//           "following._id": 1,
+//         },
+//       },
+//     ])
+//     .toArray();
 
-  return result.map((u) => u.following._id.toString());
-}
+//   return result.map((u) => u.following._id.toString());
+// }
 
 export async function isFollowing(client, userId, followingUserId) {
   const userRelation = client.db().collection("user-relations");

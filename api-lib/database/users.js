@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { join, users } from "./utils";
+import { join, userRelations, users } from "./utils";
 import bcrypt from "bcrypt";
 
 export async function getUserInfo(client, userId) {
@@ -45,4 +45,49 @@ export async function updateUser(client, id, update) {
     { $set: update }
   );
   return result;
+}
+
+export async function insertUser(client, email, password) {
+  const hash = await bcrypt.hash(password, 12);
+
+  const session = client.startSession();
+
+  let user;
+  try {
+    await session.withTransaction(async () => {
+      user = await users(client).insertOne(
+        {
+          email,
+          password: hash,
+          username: null,
+          name: "Anonymous",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          about: null,
+        },
+        { session }
+      );
+
+      await userRelations(client).insertOne(
+        {
+          t: ObjectId(user.insertedId),
+          f: ObjectId(user.insertedId),
+        },
+        { session }
+      );
+    });
+  } catch (e) {
+    console.error(e);
+    return null;
+  } finally {
+    await session.endSession();
+    await client.close();
+  }
+
+  return user.insertedId;
+}
+
+export async function findUserByEmail(client, email) {
+  const user = await users(client).findOne({ email });
+  return user;
 }

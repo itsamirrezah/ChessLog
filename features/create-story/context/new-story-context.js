@@ -16,7 +16,7 @@ export function NewStoryProvider({ children }) {
       title: story.title,
       header: story.content.find((it) => it.type === "header")?.content || null,
       content: story.content,
-      published: story.published,
+      published: true,
       author: story.author,
       authorId: story.authorId,
       excerpt,
@@ -33,7 +33,6 @@ export function NewStoryProvider({ children }) {
     }
   }, [isSuccess]);
 
-  console.log({ story });
   const enabled =
     story && story.title && story.content.length > 3 ? true : false;
   return (

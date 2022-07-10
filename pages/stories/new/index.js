@@ -20,6 +20,12 @@ export async function getServerSideProps(context) {
     };
   }
   const hasUsername = !!session.user.username;
+  if (!hasUsername)
+    return {
+      props: {
+        hasUsername,
+      },
+    };
   const { id } = context.query;
   const client = await connectDatabase();
   if (!id) {
