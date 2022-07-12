@@ -1,18 +1,15 @@
 import Item from "./item";
 import Fallback from "./fallback";
-import useTimeline from "../../lib/services/timeline";
 import { Fragment, useEffect } from "react";
 import useIntersection from "../../lib/hooks/use-intersection";
-import useRecentStories from "../../lib/services/recent-stories";
 
-export default function Feed({ userId }) {
-  const timeline = useTimeline(userId);
-  const latestStories = useRecentStories(userId);
-
-  const { hasNextPage, data, isFetchingNextPage, fetchNextPage } = userId
-    ? timeline
-    : latestStories;
-
+export default function Feed({
+  hasNextPage,
+  data,
+  isFetchingNextPage,
+  fetchNextPage,
+  userId,
+}) {
   const { isIntersecting, ref } = useIntersection(0.2);
 
   useEffect(() => {
