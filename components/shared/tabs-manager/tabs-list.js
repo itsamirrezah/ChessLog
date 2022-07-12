@@ -7,9 +7,11 @@ export default function TabsList(props) {
   return (
     <Container>
       {children.map((child, index) => (
-        <TabItem key={index} onClick={() => onClick(index)}>
-          {child}
-        </TabItem>
+        <child.type
+          key={index}
+          onClick={() => onClick(index)}
+          {...child.props}
+        />
       ))}
     </Container>
   );
@@ -23,6 +25,6 @@ const Container = styled.div`
   gap: 10px;
 `;
 
-const TabItem = styled.div`
+export const TabItem = styled.div`
   cursor: pointer;
 `;
