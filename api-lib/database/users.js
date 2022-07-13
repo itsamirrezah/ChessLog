@@ -2,13 +2,18 @@ import { ObjectId } from "mongodb";
 import { join, userRelations, users } from "./utils";
 import bcrypt from "bcrypt";
 
-export async function getUserInfo(client, userId) {
+export async function getUserInfo(client, userId, includes) {
   const result = await users(client).aggregate([
     { $match: { _id: ObjectId(userId) } },
     { $project: { password: 0, createdAt: 0, updatedAt: 0, saved: 0 } },
     ...join("user-relations", "_id", "f", "followers", false),
-    // FIXME: head followers detail
     { $addFields: { followers: { $size: "$followers" } } },
+    ...join("user-relations", "_id", "t", "following", false),
+    { $addFields: { following: { $size: "$following" } } },
+
+    ...(includes?.stories
+      ? [...join("stories", "_id", "authorId", "stories", false)]
+      : []),
   ]);
   return result.next();
 }
@@ -25,6 +30,13 @@ export async function getUserByEmailAndPassword(client, email, password) {
   return { ...user, password: undefined };
 }
 
+export async function getUserIds(client) {
+  const result = await users(client)
+    .find({})
+    .project({ _id: { $toString: "$_id" } })
+    .toArray();
+  return result;
+}
 export async function getUserBy(client, by, includes = {}) {
   const result = await users(client).aggregate([
     { $match: by },

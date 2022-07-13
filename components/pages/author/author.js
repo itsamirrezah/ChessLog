@@ -7,16 +7,12 @@ import TabsList from "../../shared/tabs-manager/tabs-list";
 import TabContentsList from "../../shared/tabs-manager/tab-contents-list";
 import { TabItem } from "../../shared/tabs-manager/tabs-list";
 import Main from "../home/styled/main";
+import useAuth from "../../../lib/context/auth-context";
 
-export default function Author() {
-  const author = {
-    _id: "62cad0fe54454aaebad42ee3",
-    email: "email@gmail.com",
-    username: "@username",
-    name: "@name",
-    about:
-      "Writer, blogger, activist. Blog: https://pluralistic.net; Mailing list: https://pluralistic.net/plura-list; Twitter: https://twitter.com/doctorow",
-  };
+export default function AuthorPage({ author }) {
+  const { user } = useAuth();
+  const isAuthorized = user && user.id === author._id;
+
   return (
     <Layout>
       <MainPage grid width={1192}>
@@ -24,12 +20,12 @@ export default function Author() {
           <TabsManager>
             <TabsList>
               <TabItem>Home</TabItem>
-              <TabItem>Bookmark</TabItem>
+              {isAuthorized && <TabItem>Bookmark</TabItem>}
             </TabsList>
 
             <TabContentsList>
               <p>Home</p>
-              <p>Bookmark</p>
+              {isAuthorized && <p>Bookmark</p>}
             </TabContentsList>
           </TabsManager>
         </Main>

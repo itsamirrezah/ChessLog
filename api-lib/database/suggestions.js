@@ -12,7 +12,6 @@ export async function suggestAuthors(client, userId) {
           { $project: { f: 1, _id: 0 } },
         ],
         all: [
-          // FIXME: authors with zero followers issue
           ...join("users", "f", "_id", "user"),
           { $replaceRoot: { newRoot: "$user" } },
           { $project: { username: 1, about: 1, name: 1 } },
