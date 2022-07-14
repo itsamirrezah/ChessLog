@@ -1,4 +1,4 @@
-import { users, join } from "./utils";
+import { users, join, pagination } from "./utils";
 import { ObjectId } from "mongodb";
 
 function getCollections(userId) {
@@ -22,7 +22,13 @@ export async function getSavedStoryIds(client, userId) {
   return result.next();
 }
 
-export async function getRecentlySavedStories(client, userId) {
+export async function getRecentlySavedStories(
+  client,
+  userId,
+  page,
+  skip,
+  limit
+) {
   const result = await users(client).aggregate([
     // FIXME: sort by bookmark date
     ...getCollections(userId),
@@ -34,38 +40,12 @@ export async function getRecentlySavedStories(client, userId) {
     },
     { $unwind: "$saved" },
     { $replaceRoot: { newRoot: "$saved" } },
-
-    {
-      $facet: {
-        totalCount: [{ $count: "total" }],
-        stories: [
-          { $project: { k: { $toObjectId: "$k" } } },
-          ...join("stories", "k", "_id", "stories"),
-          { $replaceRoot: { newRoot: "$stories" } },
-          { $project: { content: 0, authorId: 0 } },
-          { $limit: 5 },
-        ],
-      },
-    },
-    // FIXME: look for simpler solution for zero saved story state
-    {
-      $project: {
-        stories: 1,
-        totalCount: {
-          $cond: {
-            if: { $eq: ["$totalCount", []] },
-            then: { total: 0 },
-            else: "$totalCount",
-          },
-        },
-      },
-    },
-    { $unwind: "$totalCount" },
-    {
-      $replaceRoot: {
-        newRoot: { stories: "$stories", total: "$totalCount.total" },
-      },
-    },
+    { $project: { k: { $toObjectId: "$k" } } },
+    ...join("stories", "k", "_id", "stories"),
+    { $replaceRoot: { newRoot: "$stories" } },
+    { $project: { content: 0, authorId: 0 } },
+    { $addFields: { isSaved: true } },
+    ...pagination(page, skip, limit),
   ]);
 
   return result.next();

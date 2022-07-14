@@ -22,9 +22,18 @@ handler.put(async (req, res) => {
 });
 
 handler.get(async (req, res) => {
-  const { id } = req.query;
+  const { id, ...pageParams } = req.query;
+  const page = +pageParams.page;
+  const limit = +pageParams.limit;
+
   if (id !== req.user.id) throw new Error("user is not authorize");
-  const stories = await getRecentlySavedStories(req.db, id);
+  const stories = await getRecentlySavedStories(
+    req.db,
+    id,
+    page,
+    page * limit,
+    limit
+  );
   if (!stories) throw new Error("get error");
   res.status(200).json(stories);
 });

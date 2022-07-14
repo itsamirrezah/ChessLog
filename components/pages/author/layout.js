@@ -4,11 +4,11 @@ import Spacer from "../../shared/dividers/spacer";
 import Items from "../../shared/nav/items";
 import Container from "../../shared/layout/container";
 import UserActionHeader from "../../../features/user-actions-header/user-action-header";
-export default function Layout({ children }) {
+export default function Layout({ children, logo }) {
   return (
     <Container>
       <Navigation height={75} isFixed={false} isHeroVisible={false}>
-        <Logo>Amirreza's Blog</Logo>
+        <Logo>{`${logo} Blog`}</Logo>
         <Spacer variant="flex" />
         <Items>
           <UserActionHeader />

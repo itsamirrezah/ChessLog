@@ -5,19 +5,20 @@ import TextButton from "../../components/shared/buttons/text-button";
 import Link from "next/link";
 
 export default function RecentlySaved({ userId }) {
-  const { data } = useSavedStories(userId);
+  const { data: allPages } = useSavedStories(userId, 3);
 
-  if (!data || data.total === 0) return null;
+  const page = allPages?.pages[0];
+  if (!page || page?.metadata.total === 0) return null;
 
   return (
     <div>
       <Header>Recently Saved</Header>
-      {data.stories.map((story) => (
+      {page.stories.map((story) => (
         <Item key={story._id} item={story} />
       ))}
       <Link href={`/users/${userId}/saved`}>
         <a>
-          <TextButton color="#1a8a17">{`See all (${data.total})`}</TextButton>
+          <TextButton color="#1a8a17">{`See all (${page.metadata.total})`}</TextButton>
         </a>
       </Link>
     </div>
