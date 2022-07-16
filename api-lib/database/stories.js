@@ -73,6 +73,18 @@ export async function getStoryActionsByUser(client, userId, storyId) {
   return result.next();
 }
 
+export async function getStoriesByAuthor(client, authorId, page, skip, limit) {
+  const result = await stories(client).aggregate([
+    {
+      $match: { authorId: ObjectId(authorId) },
+    },
+    { $project: { content: 0, authorId: 0 } },
+    ...pagination(page, skip, limit),
+  ]);
+
+  return result.next();
+}
+
 export async function getStoryBy(client, by) {
   const result = await stories(client).aggregate([{ $match: by }]);
   return result.next();

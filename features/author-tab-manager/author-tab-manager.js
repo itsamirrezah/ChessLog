@@ -3,6 +3,7 @@ import TabsList from "../../components/shared/tabs-manager/tabs-list";
 import { TabItem } from "../../components/shared/tabs-manager/tabs-list";
 import TabContentsList from "../../components/shared/tabs-manager/tab-contents-list";
 import SavedStories from "../saved-stories/saved-stories";
+import AuthorStories from "../author-stories/author-stories";
 
 export default function AuthorTabManager({ authorId, isAuthorized }) {
   return (
@@ -13,7 +14,7 @@ export default function AuthorTabManager({ authorId, isAuthorized }) {
       </TabsList>
 
       <TabContentsList>
-        <p>Home</p>
+        <AuthorStories authorId={authorId} />
         {isAuthorized && <SavedStories authorId={authorId} />}
       </TabContentsList>
     </TabsManager>
