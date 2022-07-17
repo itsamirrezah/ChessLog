@@ -5,6 +5,7 @@ import AuthorDetail from "../../../features/author-detail-sidebar/author-detail-
 import Main from "../home/styled/main";
 import useAuth from "../../../lib/context/auth-context";
 import AuthorTabManager from "../../../features/author-tab-manager/author-tab-manager";
+import AuthorFollowingSideBar from "../../../features/author-relations-sidebar/author-following-sidebar";
 
 export default function AuthorPage({ author }) {
   const { user } = useAuth();
@@ -21,7 +22,7 @@ export default function AuthorPage({ author }) {
         <Side right gridColumn={10} span={3}>
           <div>
             <AuthorDetail author={author} />
-            <div>Following Section</div>
+            <AuthorFollowingSideBar authorId={author._id} />
           </div>
         </Side>
       </MainPage>

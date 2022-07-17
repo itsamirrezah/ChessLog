@@ -24,7 +24,7 @@ export function users(client) {
   return client.db().collection("users");
 }
 
-export function pagination(page, skip, limit) {
+export function pagination(page, skip, limit, field = "stories") {
   return [
     {
       $facet: {
@@ -42,7 +42,7 @@ export function pagination(page, skip, limit) {
             },
           },
         ],
-        stories: [{ $skip: skip }, { $limit: limit }],
+        [field]: [{ $skip: skip }, { $limit: limit }],
       },
     },
     {
@@ -55,7 +55,7 @@ export function pagination(page, skip, limit) {
             { total: 0, nextPage: false },
           ],
         },
-        stories: 1,
+        [field]: 1,
       },
     },
     {
@@ -71,6 +71,7 @@ export function join(
   as,
   unwindAfterJoin = true
 ) {
+  // FIXME: right join compatible
   return [
     {
       $lookup: {
@@ -84,6 +85,6 @@ export function join(
   ];
 }
 
-export function multipleOpFromList(list, callback){
-  return list.map((it)=> callback(it))
+export function multipleOpFromList(list, callback) {
+  return list.map((it) => callback(it));
 }
