@@ -9,9 +9,8 @@ import withAuth from "../../../../../api-lib/middlewares/auth";
 
 const handler = globalHandler();
 handler.use(withDatabase);
-handler.use(withAuth);
 
-handler.put(async (req, res) => {
+handler.put(withAuth, async (req, res) => {
   const { id } = req.query;
   if (!id) throw new Error("bad request");
   const result = await follow(req.db, req.user.id, id);
@@ -19,7 +18,7 @@ handler.put(async (req, res) => {
   res.status(200).end();
 });
 
-handler.delete(async (req, res) => {
+handler.delete(withAuth, async (req, res) => {
   const { id } = req.query;
   if (!id) throw new Error("bad request");
   const result = await unFollow(req.db, req.user.id, id);

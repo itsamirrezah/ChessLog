@@ -25,7 +25,7 @@ export async function getUserFollowing(client, userId, page, skip, limit) {
     ...getUserRelations(page, skip, limit),
   ]);
 
-  return result.toArray();
+  return result.next();
 }
 
 export async function getUserFollowers(client, userId, page, skip, limit) {
@@ -33,7 +33,7 @@ export async function getUserFollowers(client, userId, page, skip, limit) {
     { $match: { f: ObjectId(userId), t: { $ne: ObjectId(userId) } } },
     ...getUserRelations(page, skip, limit),
   ]);
-  return result.toArray();
+  return result.next();
 }
 
 function getUserRelations(page, skip, limit) {

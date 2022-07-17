@@ -50,7 +50,7 @@ export default function Item({ story, userId }) {
           </InfoWrapper>
         </Main>
         <div>
-          <Header src={story.header} alt={story.excerpt} />
+          <Header src={story?.header || "/cover.jpg"} alt={story.excerpt} />
         </div>
       </Container>
       <Line />
